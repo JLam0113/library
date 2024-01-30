@@ -1,0 +1,8 @@
+#booksDisplay {
+    margin: 20px 0px;
+}
+
+#booksDisplay th {
+    padding: 5px;
+    border: 1px solid black;
+}
