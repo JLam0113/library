@@ -16,10 +16,15 @@ function addBookToLibrary(book) {
 function displayBooks() {
     const booksDisplay = document.querySelector('#booksDisplay')
     booksDisplay.innerHTML = ""
-    booksDisplay.innerHTML += "<tr><th>Book Title</th><th>Book Author</th><th>Book Pages</th><th>Book Read</th></tr>"
-    myLibrary.forEach(function (book) {
-        booksDisplay.innerHTML += "<tr><td>" + book.title + "</td><td>" + book.author + "</td><td>" + book.pages + "</td><td>" + book.read + "</td</tr>"
+    booksDisplay.innerHTML += "<tr><th>Book Title</th><th>Book Author</th><th>Book Pages</th><th>Book Read</th><th></th></tr>"
+    myLibrary.forEach((value, index) => {
+        booksDisplay.innerHTML += '<tr id="' + index + '"><td>' + value.title + "</td><td>" + value.author + "</td><td>" + value.pages + "</td><td>" + value.read + '</td><td><button onclick="deleteBook(' + index + ')">X</button></tr>'
     });
+}
+
+function deleteBook(index) {
+    myLibrary.splice(index, 1)
+    displayBooks()
 }
 
 const bookForm = document.getElementById("bookForm");
@@ -35,11 +40,17 @@ bookForm.addEventListener("submit", (e) => {
 
     let book = new Book(title.value, author.value, pages.value, read.value)
 
-    if(title.value == '' || author.value == '' || pages.value == '' || read.value == ''){
+    if (title.value == '' || author.value == '' || pages.value == '' || read.value == '') {
+        document.getElementById("error").innerHTML = ''
         document.getElementById("error").innerHTML += 'Please fill out all the fields<br>'
     }
-    else{
+    else {
+        title.value = ''
+        author.value = ''
+        pages.value = ''
+        read.value = ''
         document.getElementById("error").innerHTML = ''
-    addBookToLibrary(book)
+        addBookToLibrary(book)
+        $('#myModal').modal('toggle')
     }
 });
