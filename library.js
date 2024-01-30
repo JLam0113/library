@@ -18,12 +18,20 @@ function displayBooks() {
     booksDisplay.innerHTML = ""
     booksDisplay.innerHTML += "<tr><th>Book Title</th><th>Book Author</th><th>Book Pages</th><th>Book Read</th><th></th></tr>"
     myLibrary.forEach((value, index) => {
-        booksDisplay.innerHTML += '<tr id="' + index + '"><td>' + value.title + "</td><td>" + value.author + "</td><td>" + value.pages + "</td><td>" + value.read + '</td><td><button onclick="deleteBook(' + index + ')">X</button></tr>'
+        booksDisplay.innerHTML += '<tr id="' + index + '"><td>' + value.title + "</td><td>" + value.author + "</td><td>" + value.pages + '</td><td><button onclick=toggle(' + index + ')>' + value.read + '</td><td><button onclick="deleteBook(' + index + ')">X</button></tr>'
     });
 }
 
 function deleteBook(index) {
     myLibrary.splice(index, 1)
+    displayBooks()
+}
+
+function toggle(index) {
+    if (myLibrary[index].read == 'true')
+        myLibrary[index].read = 'false'
+    else
+        myLibrary[index].read = 'true'
     displayBooks()
 }
 
